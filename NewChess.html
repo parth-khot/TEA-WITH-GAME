@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: white;
+            font-family: "Arial", sans-serif;
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            overflow-x: hidden;
+        }
+
+        .uniform {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            transform: scale(var(--s, 1));
+            display: flex;
+            align-items: center;
+            overflow: visible;
+            transition: transform ease 1s;
+        }
+
+        .object3d {
+            position: relative;
+            margin: auto;
+            transform: perspective(var(--p, 1000px)) rotateX(var(--x, 50deg)) rotateY(var(--y, 0deg)) rotateZ(var(--z, 0deg)) translate3d(var(--tx, 0px), var(--ty, 0px), var(--tz, -12px));
+            transform-style: preserve-3d;
+            transition: all ease 1s;
+        }
+
+        .reusable-rect {
+            --width: 300px;
+            --height: 50px;
+            --length: 600px;
+            position: relative;
+            width: var(--width);
+            height: var(--length);
+            background: var(--back-color, white);
+            transform-style: preserve-3d;
+        }
+
+        .reusable-rect .sides {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: block;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+        }
+
+        .reusable-rect:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(var(--height));
+            background: var(--front-color, white);
+        }
+
+        .reusable-rect .side1 {
+            width: var(--height);
+            height: var(--length);
+            transform: rotateY(-90deg);
+            transform-origin: 0% 0%;
+            background: var(--x-axis-left-color, white);
+        }
+
+        .reusable-rect .side1::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(calc(var(--width) * -1));
+            background: var(--x-axis-right-color, white);
+        }
+
+        .reusable-rect .side2 {
+            width: var(--width);
+            height: var(--height);
+            transform: rotateX(90deg);
+            transform-origin: 0% 0%;
+            background: var(--y-axis-top-color, white);
+        }
+
+        .reusable-rect .side2::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform: translateZ(calc(var(--length) * -1));
+            background: var(--y-axis-bottom-color, white);
+        }
+
+        /* Stage (outer border + base) */
+        .main-stage {
+            --width: var(--border-template);
+            --height: 50px;
+            --length: var(--border-template);
+            --back-color: #FFDBB7;
+            --front-color: #FFDBB7;
+            --x-axis-left-color: #BF9D7A;
+            --x-axis-right-color: #905438;
+            --y-axis-top-color: #E8C19A;
+            --y-axis-bottom-color: #E8C19A;
+        }
+
+        /* Shadow under board */
+        .main-stage::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 51%;
+            width: 106%;
+            height: 103%;
+            background: rgba(0, 0, 0, 0.24);
+            filter: blur(10px);
+            transform: translate(-50%, -50%) translateZ(-1px);
+            border-radius: 4%;
+            backface-visibility: hidden;
+        }
+
+        /* Checkered squares */
+        .main-elements {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: var(--max-area);
+            height: var(--max-area);
+            transform: translate(-50%, -50%) translateZ(var(--height));
+            transform-style: preserve-3d;
+            --concat-color: #905438;
+            background-image:
+                linear-gradient(45deg, var(--concat-color) 25%, transparent 25%, transparent 75%, var(--concat-color) 75%),
+                linear-gradient(45deg, var(--concat-color) 25%, transparent 25%, transparent 75%, var(--concat-color) 75%);
+            background-size: var(--block-set-size) var(--block-set-size);
+            background-position: 0 0, var(--block-size) var(--block-size);
+        }
+
+        /* Outline around squares */
+        .main-elements::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: var(--outline-template);
+            height: var(--outline-template);
+            border: var(--outline-size) solid #905438;
+            border-radius: 5px;
+            transform: translate(-50%, -50%);
+            transition: all ease 0.4s;
+        }
+
+        /* Coordinates */
+        .coordinates,
+        .coordinates_ {
+            position: absolute;
+            width: 100%;
+            height: var(--border-size-init);
+            bottom: 0;
+        }
+
+        .coordinates {
+            left: 0;
+            transform: translateY(100%);
+        }
+
+        .coordinates_ {
+            right: calc(var(--border-size-init) * -1);
+            transform: translateX(100%) rotate(-90deg);
+            transform-origin: 0% 100%;
+        }
+
+        .coordinates::before,
+        .coordinates::after,
+        .coordinates_::before,
+        .coordinates_::after {
+            content: " ABCDEFGH ";
+            position: absolute;
+            letter-spacing: 82px;
+            text-indent: 38px;
+            padding-top: 20px;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: #905438;
+            font-size: 30px;
+            width: 100%;
+            height: var(--border-size);
+            text-align: justify;
+        }
+
+        .coordinates::after {
+            content: " HGFEDCBA ";
+        }
+
+        .coordinates_::before,
+        .coordinates_::after {
+            content: " 12345678 ";
+            letter-spacing: 84px;
+        }
+
+        .coordinates_::after {
+            content: " 87654321 ";
+        }
+
+        /* Chessboard sizing */
+        .chess-defaults {
+            --block-size: 100px;
+            --block-set-size: calc(var(--block-size) * 2);
+            --outline-size: 6px;
+            --outline-offset: 8px;
+            --border-size: 80px;
+            --border-size-init: 80px;
+            --max-area: calc(var(--block-size) * 8);
+            --outline-template: calc(100% + var(--outline-offset) * 2);
+            --border-template: calc(var(--max-area) + var(--border-size) * 2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="uniform">
+        <div class="object3d chess-defaults">
+
+            <div class="reusable-rect main-stage">
+                <div class="sides side1"></div>
+                <div class="sides side2"></div>
+
+                <div class="main-elements">
+                    <div class="board">
+                        <img src="./Asset/Pawn.png" alt="Pawn" style="width: 80px; position: relative; top: 400px;">
+                        <img src="./Asset/Pawn.png" alt="Pawn" style="width: 80px; position: relative; top: 500px; left: 30px;">
+                        <img src="./Asset/Pawn.png" alt="Pawn" style="width: 80px; position: relative; top: 500px; left: 40px;">
+                        <img src="./Asset/Pawn.png" alt="Pawn" style="width: 80px; position: relative; top: 300px; left: 150px;">
+                        <img src="./Asset/Pawn.png" alt="Pawn" style="width: 80px; position: relative; top: 400px; left: 180px;">
+                        <img src="./Asset/Pawn.png" alt="Pawn" style="width: 80px; position: relative; top: 500px; left: 190px;">
+                        <img src="./Asset/Pawn.png" alt="Pawn" style="width: 80px; position: relative; top: 500px; left: 210px;">
+                        <img src="./Asset/Bishop.png" alt="Pawn" style="width: 90px; position: relative; top: 600px; left: -90px;">
+                        <img src="./Asset/Rook.png" alt="Pawn" style="width: 85px; position: relative; top: 600px; left: 20px;">
+                        <img src="./Asset/Rook.png" alt="Pawn" style="width: 85px; position: relative; top: 390px; left: 300px;">
+                        <img src="./Asset/Knight.png" alt="Pawn" style="width: 85px; position: relative; top: 190px; left: 120px; z-index: -1;">
+                        <img src="./Asset/Knight.png" alt="Pawn" style="width: 85px; position: relative; top: 90px; left: 120px;">
+                        <img src="./Asset/Queen.png" alt="Pawn" style="width: 90px; position: relative; top: -130px; left: 440px;">
+                        <img src="./Asset/King.png" alt="Pawn" style="width: 90px; position: relative; top: 380px; left: -250px; z-index: 1;">
+                        <img src="./Asset/Black Pawn.png" alt="Pawn" style="width: 90px; position: relative; top: 0; left: -450px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

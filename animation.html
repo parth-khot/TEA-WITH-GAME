@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+
+        main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            position: relative;
+        }
+
+        .mouse-scroll {
+            text-align: center;
+            width: 125px;
+            height: 100px;
+            padding-top: 15px;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .mouse-scroll span.mouse-scroll {
+            font-weight: 600;
+            letter-spacing: normal;
+            position: relative;
+            color: #000;
+            opacity: .7;
+            font-size: 22px;
+            display: block;
+            margin-top: 10px;
+            user-select: none;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        .mouse {
+            width: 24px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #000;
+            border-radius: 100px;
+            box-shadow: 0 3px 7px 0 rgb(0 0 0 / 20%);
+            margin: auto auto 8px;
+            animation: mouse 1.35s cubic-bezier(.645, .045, .355, 1) infinite;
+        }
+
+        .mouse span {
+            width: 6px;
+            height: 6px;
+            position: relative;
+            transform: translateY(-10px);
+            background: #e91e63;
+            border-radius: 100%;
+            animation: mouseScroll 1.35s cubic-bezier(.645, .045, .355, 1) infinite;
+        }
+
+        .Coffee-Tree {
+            position: absolute;
+            max-width: 550px;
+            height: auto;
+            right: 150px;
+            margin-top: 50px;
+        }
+
+        #leaves {
+            position: absolute;
+            top: 310px;
+            right: 200px;
+            width: 100%;
+            text-align: right;
+        }
+
+        #leaves i {
+            display: inline-block;
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(to bottom right, #309900, #005600);
+            transform: skew(20deg);
+            border-radius: 5% 40% 70%;
+            box-shadow: inset 0px 0px 1px #222;
+            border: 1px solid #333;
+            z-index: 1;
+            animation: falling 5s 0s infinite;
+        }
+
+        #leaves i:nth-of-type(2n) {
+            animation: falling2 5s 0s infinite;
+        }
+
+        #leaves i:nth-of-type(3n) {
+            animation: falling3 5s 0s infinite;
+        }
+
+        #leaves i:before {
+            position: absolute;
+            content: '';
+            top: 117px;
+            right: 9px;
+            height: 27px;
+            width: 32px;
+            transform: rotate(49deg);
+            border-radius: 0% 15% 15% 0%;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            border-left: 0px solid #222;
+            border-right: 1px solid #222;
+            background: linear-gradient(to right, rgba(0, 100, 0, 1), #005600);
+            z-index: 1;
+        }
+
+        #leaves i:after {
+            content: '';
+            height: 125px;
+            width: 10px;
+            background: linear-gradient(to right, rgba(0, 0, 0, .15), rgba(0, 0, 0, 0));
+            display: block;
+            transform: rotate(125deg);
+            position: absolute;
+            left: 85px;
+            border-radius: 50%;
+        }
+
+
+        #leaves i:nth-of-type(n) {
+            height: 23px;
+            width: 30px;
+        }
+
+        #leaves i:nth-of-type(n):before {
+            width: 7px;
+            height: 5px;
+            top: 17px;
+            right: 1px;
+        }
+
+        #leaves i:nth-of-type(n):after {
+            width: 2px;
+            height: 17px;
+            left: 12px;
+            top: 0px;
+        }
+
+        #leaves i:nth-of-type(2n+1) {
+            height: 11px;
+            width: 16px;
+        }
+
+        #leaves i:nth-of-type(2n+1):before {
+            width: 4px;
+            height: 3px;
+            top: 7px;
+            right: 0px;
+        }
+
+        #leaves i:nth-of-type(2n+1):after {
+            width: 2px;
+            height: 6px;
+            left: 5px;
+            top: 1px;
+        }
+
+        #leaves i:nth-of-type(3n+2) {
+            height: 17px;
+            width: 23px;
+        }
+
+        #leaves i:nth-of-type(3n+2):before {
+            height: 4px;
+            width: 4px;
+            top: 12px;
+            right: 1px;
+        }
+
+        #leaves i:nth-of-type(3n+2):after {
+            height: 10px;
+            width: 2px;
+            top: 1px;
+            left: 8px;
+        }
+
+        #leaves i:nth-of-type(n) {
+            animation-delay: 1.9s;
+        }
+
+        #leaves i:nth-of-type(2n) {
+            animation-delay: 3.9s;
+        }
+
+        #leaves i:nth-of-type(3n) {
+            animation-delay: 2.3s;
+        }
+
+        #leaves i:nth-of-type(4n) {
+            animation-delay: 4.4s;
+        }
+
+        #leaves i:nth-of-type(5n) {
+            animation-delay: 5s;
+        }
+
+        #leaves i:nth-of-type(6n) {
+            animation-delay: 3.5s;
+        }
+
+        #leaves i:nth-of-type(7n) {
+            animation-delay: 2.8s;
+        }
+
+        #leaves i:nth-of-type(8n) {
+            animation-delay: 1.5s;
+        }
+
+        #leaves i:nth-of-type(9n) {
+            animation-delay: 3.3s;
+        }
+
+        #leaves i:nth-of-type(10n) {
+            animation-delay: 2.5s;
+        }
+
+        #leaves i:nth-of-type(11n) {
+            animation-delay: 1.2s;
+        }
+
+        #leaves i:nth-of-type(12n) {
+            animation-delay: 4.1s;
+        }
+
+        #leaves i:nth-of-type(13n) {
+            animation-delay: 1s;
+        }
+
+        #leaves i:nth-of-type(14n) {
+            animation-delay: 4.7s;
+        }
+
+        #leaves i:nth-of-type(15n) {
+            animation-delay: 3s;
+        }
+
+        #leaves i:nth-of-type(n) {
+            background: linear-gradient(to bottom right, #309900, #005600);
+        }
+
+        #leaves i:nth-of-type(2n+2) {
+            background: linear-gradient(to bottom right, #5e9900, #2b5600);
+        }
+
+        #leaves i:nth-of-type(4n+1) {
+            background: linear-gradient(to bottom right, #990, #564500);
+        }
+
+        #leaves i:nth-of-type(n) {
+            opacity: .7;
+        }
+
+        #leaves i:nth-of-type(3n+1) {
+            opacity: .5;
+        }
+
+        #leaves i:nth-of-type(3n+2) {
+            opacity: .3;
+        }
+
+        #leaves i:nth-of-type(n) {
+            transform: rotate(180deg);
+        }
+
+
+        #leaves i:nth-of-type(n) {
+            animation-timing-function: ease-in-out;
+        }
+
+
+        @keyframes mouse {
+            0% {
+                transform: translateY(0);
+                opacity: .5;
+            }
+
+            50% {
+                transform: translateY(-5px);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: .5;
+            }
+        }
+
+        @keyframes mouseScroll {
+
+            0%,
+            30% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+                transform: translateY(-14px) scale(1);
+            }
+
+            65% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(0) scale(.75);
+            }
+        }
+
+        @keyframes falling {
+
+            0% {
+                -webkit-transform:
+                    translate3d(300, 0, 0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                -webkit-transform:
+                    translate3d(-350px, 700px, 0) rotate(90deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes falling3 {
+            0% {
+                -webkit-transform:
+                    translate3d(0, 0, 0) rotate(-20deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                -webkit-transform:
+                    translate3d(-230px, 640px, 0) rotate(-70deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes falling2 {
+            0% {
+                -webkit-transform:
+                    translate3d(0, 0, 0) rotate(90deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            100% {
+                -webkit-transform:
+                    translate3d(-400px, 680px, 0) rotate(0deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="mouse-scroll">
+            <span class="mouse">
+                <span></span>
+            </span>
+            <span class="mouse-scroll">Scroll Down</span>
+        </div>
+        <img src="./Asset/Coffee Tree.png" alt="Coffee Tree" class="Coffee-Tree">
+        <div id="leaves">
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+            <i></i>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+        <script>
+            const scroll = new LocomotiveScroll({
+                el: document.querySelector('main'),
+                smooth: true
+            });
+        </script>
+</body>
+
+</html>
