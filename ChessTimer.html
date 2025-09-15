@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chess Timer with Win/Loss Icons</title>
+
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/all.css" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/jelly-regular.css" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/jelly-duo-regular.css" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/jelly-fill-regular.css" />
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/etch-solid.css" />
+
+    <link rel="stylesheet" href="./CSS/Timer.css">
+</head>
+
+<body>
+    <div class="Timer">
+        <div class="position">
+            <img src="./Asset/Timer wooden Box.png" alt="Wooden Box" class="woodenBox">
+
+            <div class="clock-container" id="clock">
+                <div class="top-half active" id="topHalf">
+                    05:00
+                    <div class="result-icon won-icon" id="topResult"></div>
+                    <div class="result-icon lost-icon" id="topLost"></div>
+                </div>
+                <div class="bottom-half" id="bottomHalf">
+                    05:00
+                    <div class="result-icon won-icon" id="bottomResult"></div>
+                    <div class="result-icon lost-icon" id="bottomLost"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./JS/Timer.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,117 @@
+:root {
+    --primary-color: #f2b736;
+    --secondary-color: #333333;
+    --accent-color: #ffffff;
+    --text-color-dark: #000000;
+    --border-radius: 20px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.position {
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+
+.woodenBox {
+    position: absolute;
+    left: -128px;
+    top: -8px;
+    width: 650px;
+    height: 363px;
+    z-index: -1;
+    object-fit: fill;
+    user-select: none;
+}
+
+.clock-container {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    width: 225px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+}
+
+.top-half,
+.bottom-half {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    font-size: 2.5rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.top-half {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+.bottom-half {
+    background-color: var(--primary-color);
+    color: var(--text-color-dark);
+}
+
+.active::before {
+    content: "『";
+}
+
+.active::after {
+    content: "』";
+}
+
+/* Win/Loss indicators */
+.result-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+}
+
+.won-icon {
+    background-color: lightgreen;
+    animation: pop 2s ease-in-out forwards;
+}
+
+.lost-icon {
+    background-color: #dc3545;
+    animation: pop 2s ease-in-out forwards;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

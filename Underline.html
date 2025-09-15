@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .underline {
+            text-decoration: none;
+            font-size: 22px;
+            font-weight: 600;
+            color: #222;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .underline::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 2px;
+            width: 0;
+            background: #006466;
+            transition: width 0.3s ease;
+        }
+
+        .underline:hover::after,
+        .underline:focus::after {
+            width: 100%;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <a href="#" class="underline">Parth</a>
+</body>
+
+</html>

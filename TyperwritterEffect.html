@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Typewriter</title>
+  <style>
+    .typerwritter {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .max {
+      max-width: 600px;
+    }
+
+    .typerwritter .text {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      font-size: 1.5rem;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      position: relative;
+    }
+
+    .typerwritter .text::after {
+      content: "";
+      display: inline-block;
+      width: 2px;
+      height: 1.2em;
+      background: black;
+      margin-left: 2px;
+      animation: Blink 1s step-end infinite;
+      vertical-align: bottom;
+    }
+
+    @keyframes Blink {
+      50% {
+        background: transparent;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="typerwritter">
+    <div class="max">
+      <div class="text"></div>
+    </div>
+  </div>
+
+  <script>
+    const div = document.querySelector(".text");
+    const text = "JavaScript Typerwritter Effect";
+
+    function textTypingEffect(element, text, i = 0) {
+      if (i === 0) element.textContent = "";
+
+      element.textContent += text[i];
+
+      if (i < text.length - 1) {
+        setTimeout(() => textTypingEffect(element, text, i + 1), 50);
+      }
+    }
+
+    textTypingEffect(div, text);
+  </script>
+</body>
+
+</html>

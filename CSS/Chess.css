@@ -1,0 +1,673 @@
+:root {
+    --primary-color: #f2b736;
+    --secondary-color: #333333;
+    --accent-color: #ffffff;
+    --text-color-dark: #000000;
+    --border-radius: 20px;
+    --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Reset and layout styles */
+html,
+body {
+    padding: 1000px;
+    margin: 0;
+    width: 100vw;
+    overflow-x: hidden;
+    background-color: #f0f0f0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* Uniform container */
+.uniform {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: visible;
+    transform: scale(var(--s, 1));
+    transition: transform ease 1s;
+}
+
+/* 3D object styles */
+.object3d {
+    position: relative;
+    margin: auto;
+    transform: perspective(var(--p, 1000px)) rotateX(var(--x, 45deg)) rotateY(var(--y, 0deg)) rotateZ(var(--z, 0deg)) translate3d(var(--tx, 0px), var(--ty, 0px), var(--tz, -12px));
+    transform-style: preserve-3d;
+    transition: all ease 1s;
+}
+
+/* Reusable 3D rectangle */
+.reusable-rect {
+    --width: 300px;
+    --height: 50px;
+    --length: 600px;
+    position: relative;
+    width: var(--width);
+    height: var(--length);
+    background: var(--back-color, white);
+    transform-style: preserve-3d;
+}
+
+/* Rectangle sides */
+.reusable-rect .sides {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.reusable-rect:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(var(--height));
+    background: var(--front-color, white);
+}
+
+.reusable-rect .side1 {
+    width: var(--height);
+    height: var(--length);
+    transform: rotateY(-90deg);
+    transform-origin: 0% 0%;
+    background: var(--x-axis-left-color, white);
+}
+
+.reusable-rect .side1::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(calc(var(--width) * -1));
+    background: var(--x-axis-right-color, white);
+}
+
+.reusable-rect .side2 {
+    width: var(--width);
+    height: var(--height);
+    transform: rotateX(90deg);
+    transform-origin: 0% 0%;
+    background: var(--y-axis-top-color, white);
+}
+
+.reusable-rect .side2::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform: translateZ(calc(var(--length) * -1));
+    background: var(--y-axis-bottom-color, white);
+}
+
+/* Main stage */
+.main-stage {
+    --width: var(--border-template);
+    --height: 50px;
+    --length: var(--border-template);
+    --back-color: #FFDBB7;
+    --front-color: #FFDBB7;
+    --x-axis-left-color: #BF9D7A;
+    --x-axis-right-color: #905438;
+    --y-axis-top-color: #E8C19A;
+    --y-axis-bottom-color: #E8C19A;
+}
+
+.main-stage::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 51%;
+    width: 106%;
+    height: 103%;
+    background: rgba(0, 0, 0, 0.24);
+    filter: blur(10px);
+    transform: translate(-50%, -50%) translateZ(-1px);
+    border-radius: 4%;
+    backface-visibility: hidden;
+}
+
+/* Main elements */
+.main-elements {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--max-area);
+    height: var(--max-area);
+    transform: translate(-50%, -50%) translateZ(var(--height));
+    transform-style: preserve-3d;
+    --concat-color: #905438;
+    background-image: linear-gradient(45deg, var(--concat-color) 25%, transparent 25%, transparent 75%, var(--concat-color) 75%),
+        linear-gradient(45deg, var(--concat-color) 25%, transparent 25%, transparent 75%, var(--concat-color) 75%);
+    background-size: var(--block-set-size) var(--block-set-size);
+    background-position: 0 0, var(--block-size) var(--block-size);
+}
+
+.main-elements::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: var(--outline-template);
+    height: var(--outline-template);
+    border: var(--outline-size) solid #905438;
+    border-radius: 5px;
+    transform: translate(-50%, -50%);
+    transition: all ease 0.4s;
+}
+
+/* Coordinates styling */
+.coordinates,
+.coordinates_ {
+    position: absolute;
+    width: 100%;
+    height: var(--border-size-init);
+    bottom: 0;
+}
+
+.coordinates {
+    left: 0;
+    transform: translateY(100%);
+}
+
+.coordinates_ {
+    right: calc(var(--border-size-init) * -1);
+    transform: translateX(100%) rotate(-90deg);
+    transform-origin: 0% 100%;
+}
+
+.coordinates::before,
+.coordinates::after,
+.coordinates_::before,
+.coordinates_::after {
+    content: " ABCDEFGH ";
+    position: absolute;
+    letter-spacing: 82px;
+    text-indent: 38px;
+    padding-top: 20px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    color: #905438;
+    font-size: 30px;
+    width: 100%;
+    height: var(--border-size);
+    text-align: justify;
+}
+
+.coordinates::after {
+    content: " HGFEDCBA ";
+}
+
+.coordinates_::before,
+.coordinates_::after {
+    content: " 12345678 ";
+    letter-spacing: 84px;
+}
+
+.coordinates_::after {
+    content: " 87654321 ";
+}
+
+/* Chess defaults */
+.chess-defaults {
+    --block-size: 100px;
+    --block-set-size: calc(var(--block-size) * 2);
+    --outline-size: 6px;
+    --outline-offset: 8px;
+    --border-size: 80px;
+    --border-size-init: 80px;
+    --max-area: calc(var(--block-size) * 8);
+    --outline-template: calc(100% + var(--outline-offset) * 2);
+    --border-template: calc(var(--max-area) + var(--border-size) * 2);
+}
+
+.wrapper {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+/* Chess pieces common styles */
+.king,
+.rook,
+.knight-g,
+.knight-b,
+.bishop,
+.queen,
+.pawn-f5,
+.pawn-g3,
+.pawn-h2,
+.pawn-d2,
+.pawn-b3 {
+    display: block;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.king {
+    width: 225px;
+    filter: drop-shadow(5px -5px 5px rgba(0, 0, 0, 0.327));
+}
+
+.rook {
+    width: 150px;
+}
+
+.knight-g,
+.knight-b,
+.bishop,
+.queen {
+    width: 150px;
+}
+
+.queen {
+    width: 200px;
+}
+
+.pawn-f5,
+.pawn-g3,
+.pawn-h2,
+.pawn-d2,
+.pawn-b3 {
+    width: 125px;
+}
+
+/* Piece positions */
+.king-position {
+    top: -12.5pc;
+    left: -4.063pc;
+}
+
+.rook-position {
+    top: -7.813pc;
+    left: 21.875pc;
+}
+
+.knight-g-position {
+    top: 17.188pc;
+    left: -6.875pc;
+}
+
+.knight-b-position {
+    top: 4.063pc;
+    left: -28.75pc;
+}
+
+.bishop-position {
+    top: -27.188pc;
+    left: 4.688pc;
+    z-index: -1;
+}
+
+.queen-position {
+    top: -7.813pc;
+    left: -12.813pc;
+}
+
+.pawn-f5-position {
+    top: -8.438pc;
+    left: -10.938pc;
+}
+
+.pawn-g3-position {
+    top: -21.875pc;
+    left: -25pc;
+    z-index: 1;
+}
+
+.pawn-h2-position {
+    top: -28.125pc;
+    left: -39.063pc;
+}
+
+.pawn-d2-position {
+    top: -48.438pc;
+    left: 24.375pc;
+}
+
+.pawn-b3-position {
+    top: -42.188pc;
+    left: 29.063pc;
+}
+
+/* Overlays */
+.overlay-king,
+.overlay-rook,
+.overlay-knight-g,
+.overlay-knight-b,
+.overlay-bishop,
+.overlay-queen,
+.overlay-pawn-f5,
+.overlay-pawn-g3,
+.overlay-pawn-h2,
+.overlay-pawn-d2,
+.overlay-pawn-b3 {
+    position: absolute;
+    inset: 0;
+    background: #f5deb3;
+    mix-blend-mode: multiply;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    pointer-events: none;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.overlay-king {
+    -webkit-mask-image: url('../Asset/King.png');
+    mask-image: url('../Asset/King.png');
+}
+
+.overlay-rook {
+    -webkit-mask-image: url('../Asset/Rook.png');
+    mask-image: url('../Asset/Rook.png');
+}
+
+.overlay-knight-g,
+.overlay-knight-b {
+    -webkit-mask-image: url('../Asset/Knight.png');
+    mask-image: url('../Asset/Knight.png');
+}
+
+.overlay-bishop {
+    -webkit-mask-image: url('../Asset/Bishop.png');
+    mask-image: url('../Asset/Bishop.png');
+}
+
+.overlay-queen {
+    -webkit-mask-image: url('../Asset/Queen.png');
+    mask-image: url('../Asset/Queen.png');
+}
+
+.overlay-pawn-f5,
+.overlay-pawn-g3,
+.overlay-pawn-h2,
+.overlay-pawn-d2,
+.overlay-pawn-b3 {
+    -webkit-mask-image: url('../Asset/Pawn.png');
+    mask-image: url('../Asset/Pawn.png');
+}
+
+/* Black pieces */
+.black-king {
+    width: 225px;
+    filter: drop-shadow(5px -5px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-king-position {
+    top: -9.063pc;
+    left: -13.75pc;
+}
+
+.shadow {
+    position: absolute;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-rook-a8 {
+    width: 150px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-rook-a8-position {
+    top: -10.313pc;
+    left: 11.875pc;
+}
+
+.black-rook-b4 {
+    width: 150px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-rook-b4-position {
+    top: -35.938pc;
+    left: -4.063pc;
+}
+
+.black-bishop {
+    width: 150px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-bishop-position {
+    top: -42.188pc;
+    left: 30pc;
+}
+
+.black-queen {
+    width: 200px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-queen-position {
+    top: -28.125pc;
+    left: 15.625pc;
+    transform: rotate(-45deg);
+}
+
+.black-pawn-a5 {
+    width: 125px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-pawn-a5-position {
+    top: -48.438pc;
+    left: 20.938pc;
+}
+
+.black-pawn-e7 {
+    width: 125px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-pawn-e7-position {
+    top: -35.938pc;
+    left: -12.5pc;
+}
+
+.black-pawn-f6 {
+    width: 125px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-pawn-f6-position {
+    top: -42.188pc;
+    left: -26.563pc;
+}
+
+.black-pawn-g5 {
+    width: 125px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-pawn-g5-position {
+    top: -62.813pc;
+    left: 5.625pc;
+}
+
+.black-pawn-h7 {
+    width: 125px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-pawn-h7-position {
+    top: -50.938pc;
+    left: -9.375pc;
+}
+
+/* Captured Pieces */
+.black-pawn-captured {
+    width: 125px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-pawn-captured-position {
+    top: -84.375pc;
+    left: -31.25pc;
+}
+
+.black-knight-captured {
+    width: 150px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-knight-captured-position {
+    top: -78.125pc;
+    left: -43.75pc;
+}
+
+.black-bishop-fall-captured {
+    width: 150px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.black-bishop-fall-captured-position {
+    top: -71.875pc;
+    left: -50pc;
+    transform: rotate(-90deg);
+}
+
+.rook-captured {
+    width: 125px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.rook-captured-position {
+    top: -71.875pc;
+    left: -15.625pc;
+}
+
+.pawn-captured {
+    width: 100px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.pawn-captured-position {
+    top: -78.125pc;
+    left: -25px;
+    z-index: 1;
+}
+
+.pawn-fall-captured {
+    width: 100px;
+    filter: drop-shadow(5px -7px 5px rgba(0, 0, 0, 0.327));
+}
+
+.pawn-fall-captured-position {
+    top: -68.75pc;
+    left: -28.125pc;
+    transform: rotate(-45deg);
+}
+
+/* Additional Clock Styles */
+.Timer {
+    position: absolute;
+    top: 100px;
+    left: 845px;
+    z-index: 3;
+}
+
+.position {
+    position: relative;
+    width: 400px;
+    height: 400px;
+}
+
+.woodenBox {
+    position: absolute;
+    left: -128px;
+    top: -8px;
+    width: 650px;
+    height: 363px;
+    z-index: -1;
+    object-fit: fill;
+    user-select: none;
+}
+
+.clock-container {
+    position: absolute;
+    top: 60px;
+    left: 60px;
+    width: 225px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+}
+
+.top-half,
+.bottom-half {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    font-size: 2.5rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.top-half {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+.bottom-half {
+    background-color: var(--primary-color);
+    color: var(--text-color-dark);
+}
+
+.active::before {
+    content: "『";
+}
+
+.active::after {
+    content: "』";
+}
+
+/* Win/Loss indicators */
+.result-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+}
+
+.won-icon {
+    background-color: lightgreen;
+    animation: pop 2s ease-in-out forwards;
+}
+
+.lost-icon {
+    background-color: #dc3545;
+    animation: pop 2s ease-in-out forwards;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
