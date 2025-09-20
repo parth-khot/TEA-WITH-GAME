@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEA WITH GAME</title>
+  <link rel="shortcut icon" href="./Asset/Logo.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/all.css" />
+  <link rel="stylesheet" href="./CSS/Order.css">
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+
+    .navbar-brand {
+      font-size: 24px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .nav-link {
+      color: #000;
+    }
+
+    .underline {
+      text-decoration: none;
+      font-weight: 600;
+      color: #222;
+      position: relative;
+      padding-bottom: 4px;
+    }
+
+    .underline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 2px;
+      width: 0;
+      background: #006466;
+      transition: width 0.3s ease;
+    }
+
+    .underline:hover::after,
+    .underline:focus::after {
+      width: 100%;
+    }
+
+    .form-control {
+      border-radius: 20px;
+    }
+
+    .cart-icon {
+      font-size: 1.5rem;
+      color: #815f51;
+    }
+
+    .hero-section {
+      background: #fff;
+      border-radius: 15px;
+      padding: 60px;
+      margin: 30px auto;
+      max-width: 1200px;
+      min-height: 75vh;
+    }
+
+    .hero-left h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #36241c;
+    }
+
+    .hero-left h5 {
+      color: #36241c;
+      font-weight: 600;
+    }
+
+    .hero-left p {
+      font-size: 1.1rem;
+      color: #555;
+      margin: 20px 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-img img {
+      width: 100%;
+      height: auto;
+      max-width: 100vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto;
+      transform: scale(2.3);
+    }
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    svg text {
+      text-transform: uppercase;
+      animation: stroke 5s;
+      stroke-width: 2;
+      fill: rgba(72, 138, 204, 1);
+      stroke: rgba(54, 95, 160, 0);
+      font-size: 140px;
+    }
+
+    @keyframes stroke {
+      0% {
+        fill: rgba(72, 138, 20, 0);
+        stroke: rgba(54, 95, 160, 1);
+        stroke-dashoffset: 25%;
+        stroke-dasharray: 0 50%;
+        stroke-width: 2;
+      }
+
+      70% {
+        fill: rgba(72, 138, 20, 0);
+        stroke: rgba(54, 95, 160, 1);
+      }
+
+      80% {
+        fill: rgba(72, 138, 20, 0);
+        stroke: rgba(54, 95, 160, 1);
+        stroke-width: 3;
+      }
+
+      100% {
+        fill: rgba(72, 138, 204, 1);
+        stroke: rgba(54, 95, 160, 0);
+        stroke-dashoffset: -25%;
+        stroke-dasharray: 50% 0;
+        stroke-width: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg py-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">TEA WITH GAME</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+        aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
+          <li class="nav-item">
+            <a class="nav-link underline" href="#">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link underline" href="#">Menu</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link underline" href="#">Trending</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link underline" href="#">About Us</a>
+          </li>
+        </ul>
+        <form class="d-flex align-items-center" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <a href="#" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></a>
+        </form>
+      </div>
+    </div>
+  </nav>
+
+  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-inner">
+
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <section class="hero-section row align-items-center">
+          <div class="col-md-6 hero-left">  
+            <h5>Smooth taste</h5>
+            <h1>Caramel Ribbon</h1>
+            <p>Indulge in layers of caramel sauce, whipped cream, crunchy caramel sugar, and a drizzle of caramel for
+              the ultimate Frappuccino indulgence.</p>
+            <button class="order">
+              <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
+              <span class="success">
+                Order Placed
+                <svg viewBox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </svg>
+              </span>
+              <div class="box"></div>
+              <div class="truck">
+                <div class="back"></div>
+                <div class="front">
+                  <div class="window"></div>
+                </div>
+                <div class="light top"></div>
+                <div class="light bottom"></div>
+              </div>
+              <div class="lines"></div>
+            </button>
+          </div>
+          <div class="col-md-6 hero-img text-center">
+            <img src="./Asset/Caramel Ribbon.png" alt="Caramel Ribbon Drink" class="Caramel-Ribbon">
+          </div>
+        </section>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-item">
+        <section class="hero-section row align-items-center">
+          <div class="col-md-6 hero-left">
+            <h5>Flavor Burst</h5>
+            <h1>Bubble Tea</h1>
+            <p>Experience the perfect blend of creamy milk, rich tea, and chewy tapioca pearls. Our bubble tea is
+              crafted to refresh your taste buds and bring a little sweetness to your day.</p>
+            <button class="order">
+              <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
+              <span class="success">
+                Order Placed
+                <svg viewBox="0 0 12 10">
+                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                </svg>
+              </span>
+              <div class="box"></div>
+              <div class="truck">
+                <div class="back"></div>
+                <div class="front">
+                  <div class="window"></div>
+                </div>
+                <div class="light top"></div>
+                <div class="light bottom"></div>
+              </div>
+              <div class="lines"></div>
+            </button>
+          </div>
+          <div class="col-md-6 hero-img text-center">
+            <img src="./Asset/Bubble Tea.png" alt="Bubble Tea Drink" class="Bubble-Tea">
+          </div>
+        </section>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script>
+    $('.order').click(function (e) {
+      let button = $(this);
+
+      if (!button.hasClass('animate')) {
+        button.addClass('animate');
+        setTimeout(() => {
+          button.removeClass('animate');
+        }, 10000);
+      }
+    });
+  </script>
+
+</body>
+
+</html>

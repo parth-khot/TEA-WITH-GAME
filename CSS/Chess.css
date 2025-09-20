@@ -551,7 +551,7 @@ body {
 
 .pawn-captured-position {
     top: -78.125pc;
-    left: -25px;
+    left: -25pc;
     z-index: 1;
 }
 
@@ -653,6 +653,10 @@ body {
 .lost-icon {
     background-color: #dc3545;
     animation: pop 2s ease-in-out forwards;
+}
+
+img {
+    user-select: none;
 }
 
 @keyframes pop {
