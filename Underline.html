@@ -3,13 +3,24 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=
-    , initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEA WITH GAME</title>
+    <link rel="shortcut icon" href="./Asset/Logo.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/all.css" />
     <style>
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+        }
+
+        .nav-link {
+            color: #000;
+        }
+
         .underline {
             text-decoration: none;
-            font-size: 22px;
             font-weight: 600;
             color: #222;
             position: relative;
@@ -31,12 +42,51 @@
         .underline:focus::after {
             width: 100%;
         }
-    </style>
 
+        .form-control {
+            border-radius: 20px;
+        }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            color: #815f51;
+        }
+    </style>
 </head>
 
 <body>
-    <a href="#" class="underline">Parth</a>
+
+    <nav class="navbar navbar-expand-lg py-3 fixed-top bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="#">TEA WITH GAME</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
+                    <li class="nav-item">
+                        <a class="nav-link underline" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link underline" href="#">Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link underline" href="#">Trending</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link underline" href="#">About Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex align-items-center" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <a href="#" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></a>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

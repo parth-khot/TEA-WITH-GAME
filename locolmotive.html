@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smooth Scroll Page</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    [data-scroll-container] {
+      overflow: hidden;
+    }
+
+    section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+    }
+
+    .one { background: #ff9a9e; }
+    .two { background: #fad0c4; }
+    .three { background: #fbc2eb; }
+  </style>
+</head>
+<body>
+
+  <div data-scroll-container>
+    <section class="one" data-scroll>Section One</section>
+    <section class="two" data-scroll>Section Two</section>
+    <section class="three" data-scroll>Section Three</section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+  <script>
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+      multiplier: 1,
+      class: 'is-inview'
+    });
+  </script>
+</body>
+</html>

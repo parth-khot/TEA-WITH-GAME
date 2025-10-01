@@ -1,0 +1,107 @@
+.card-container {
+    position: relative;
+    display: flex;
+    gap: 50px;
+}
+
+.card-container .box {
+    position: relative;
+    top: 0;
+    width: 360px;
+    height: 360px;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--clr);
+    padding: 60px;
+    transition: 0.5s;
+}
+
+.card-container .box:hover {
+    top: 100px;
+}
+
+.card-container .box::before {
+    content: '';
+    position: absolute;
+    inset: 30px 30px 30px 30px;
+    border: 5px solid #ddd;
+    border-radius: 20px;
+    pointer-events: none;
+    filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5));
+    transition: 0.5s;
+    z-index: 1;
+}
+
+.card-container .box:hover::before {
+    inset: -200px 30px 30px 30px;
+}
+
+.card-container .box img {
+    position: absolute;
+    z-index: 10;
+    top: 85px;
+    left: 44px;
+    max-width: 275px;
+    border-radius: 20px;
+    transition: 0.5s;
+    filter: drop-shadow(10px 10px 5px rgba(0, 0, 0, 0.3));
+}
+
+.card-container .box:hover img {
+    top: -190px;
+}
+
+.card-container .box .content {
+    opacity: 0;
+    transition: 0.5s;
+    text-align: center;
+}
+
+.card-container .box:hover .content {
+    opacity: 1;
+}
+
+.card-container .box .content h2 {
+    font-size: 2em;
+    color: #000;
+    text-align: center;
+}
+
+.card-container .box .content p {
+    color: #000;
+    text-align: center;
+}
+
+.card-container .box .border {
+    position: absolute;
+    inset: 0;
+    rotate: calc(var(--i)*90deg);
+}
+
+.card-container .box .border::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-repeat: repeat;
+    height: 10px;
+    background-image: radial-gradient(circle at 10px -5px, transparent 12px, #fff 13px);
+    background-size: 20px 20px;
+    animation: animate 0.5s linear infinite;
+    animation-play-state: paused;
+}
+
+.card-container .box:hover .border::before {
+    animation-play-state: running;
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0 0;
+    }
+
+    100% {
+        background-position: 40px 0;
+    }
+}
