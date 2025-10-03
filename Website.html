@@ -5,56 +5,127 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEA WITH GAME</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.css">
   <link rel="shortcut icon" href="./Asset/Logo.png" type="image/x-icon">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v7.0.1/css/all.css" />
   <link rel="stylesheet" href="./CSS/Order.css">
+  <link rel="stylesheet" href="./CSS/Card.css">
+  <link rel="stylesheet" href="./CSS/AddtoCart.css">
+
   <style>
+    [data-scroll-container] {
+      overflow: hidden;
+    }
+
+    .c-scrollbar {
+      z-index: 10000;
+    }
+
     body {
       overflow-x: hidden;
+    }
+
+    main {
+      padding-top: 80px;
     }
 
     .navbar-brand {
       font-size: 24px;
       font-weight: bold;
       color: #000;
+      margin-right: 40px;
+    }
+
+    .navbar-nav {
+      display: flex;
+      gap: 40px;
     }
 
     .nav-link {
       color: #000;
-    }
-
-    .underline {
-      text-decoration: none;
-      font-weight: 600;
-      color: #222;
+      font-size: 1.2rem;
       position: relative;
-      padding-bottom: 4px;
-    }
-
-    .underline::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: 0;
-      height: 2px;
-      width: 0;
-      background: #006466;
-      transition: width 0.3s ease;
-    }
-
-    .underline:hover::after,
-    .underline:focus::after {
-      width: 100%;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 75px;
+      padding: 0 15px;
+      transition: 0.5s;
     }
 
     .form-control {
       border-radius: 20px;
+      padding: 8px 15px;
+      margin-right: 15px;
     }
 
     .cart-icon {
       font-size: 1.5rem;
       color: #815f51;
+      margin-left: 10px;
+    }
+
+    #indicator {
+      position: absolute;
+      top: 0;
+      height: 75px;
+      width: 150px;
+      background-color: #b2b5ff;
+      z-index: 1;
+      transition: 0.5s;
+      display: none;
+    }
+
+    #indicator::before {
+      content: '';
+      position: absolute;
+      left: -30px;
+      width: 50px;
+      height: 15px;
+      background: #b2b5ff;
+      border-radius: 15px;
+      box-shadow: 15px 30px #b2b5ff,
+        5px 60px #b2b5ff,
+        -15px 15px #fff,
+        -10px 45px #fff;
+      transition: 0.5s;
+    }
+
+    #indicator::after {
+      content: '';
+      position: absolute;
+      right: -30px;
+      width: 50px;
+      height: 15px;
+      background: #b2b5ff;
+      border-radius: 15px;
+      box-shadow: 5px 30px #b2b5ff,
+        -15px 60px #b2b5ff,
+        15px 15px #fff,
+        10px 45px #fff;
+      transition: 0.5s;
+    }
+
+    #indicator.change::before {
+      left: -10px;
+      box-shadow: -15px 30px #b2b5ff,
+        -5px 60px #b2b5ff,
+        -10px 15px #fff,
+        -20px 45px #fff;
+    }
+
+    #indicator.change::after {
+      right: -20px;
+      box-shadow: 10px 30px #b2b5ff,
+        20px 60px #b2b5ff,
+        15px 15px #fff,
+        25px 45px #fff;
+    }
+
+    .nav-indicator-container {
+      position: relative;
     }
 
     .hero-section {
@@ -97,161 +168,423 @@
       transform: scale(2.3);
     }
 
-    svg {
-      width: 100%;
-      height: 100%;
+    .container-text {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      background: #f7f7f7;
     }
 
-    svg text {
-      text-transform: uppercase;
-      animation: stroke 5s;
-      stroke-width: 2;
-      fill: rgba(72, 138, 204, 1);
-      stroke: rgba(54, 95, 160, 0);
-      font-size: 140px;
+    .container-text h2 {
+      position: absolute;
+      font-size: 6em;
+      line-height: 1em;
+      color: #aaa;
+      text-shadow:
+        2px 2px 6px rgba(0, 0, 0, 0.2),
+        4px 4px 12px rgba(0, 0, 0, 0.15),
+        6px 6px 24px rgba(0, 0, 0, 0.1);
     }
 
-    @keyframes stroke {
-      0% {
-        fill: rgba(72, 138, 20, 0);
-        stroke: rgba(54, 95, 160, 1);
-        stroke-dashoffset: 25%;
-        stroke-dasharray: 0 50%;
-        stroke-width: 2;
-      }
+    .container-text h2:nth-child(2) {
+      color: #03a9fa;
+      text-shadow:
+        2px 2px 6px rgba(3, 169, 250, 0.5),
+        4px 4px 16px rgba(3, 117, 169, 0.4),
+        6px 6px 28px rgba(0, 0, 0, 0.25);
+      clip-path: circle(20% at 50% 100%);
+      transition: clip-path 2.5s;
+    }
 
-      70% {
-        fill: rgba(72, 138, 20, 0);
-        stroke: rgba(54, 95, 160, 1);
-      }
+    .container-text h2:nth-child(2):hover {
+      clip-path: circle(50% at 50% 100%);
+    }
 
-      80% {
-        fill: rgba(72, 138, 20, 0);
-        stroke: rgba(54, 95, 160, 1);
-        stroke-width: 3;
-      }
+    .container-text h2:nth-child(3) {
+      color: #2cff37;
+      text-shadow:
+        2px 2px 6px rgba(8, 160, 16, 0.5),
+        4px 4px 16px rgba(8, 160, 16, 0.4),
+        6px 6px 28px rgba(0, 0, 0, 0.25);
+      clip-path: circle(20% at 0% 0%);
+      transition: clip-path 2.5s;
+    }
 
-      100% {
-        fill: rgba(72, 138, 204, 1);
-        stroke: rgba(54, 95, 160, 0);
-        stroke-dashoffset: -25%;
-        stroke-dasharray: 50% 0;
-        stroke-width: 0;
-      }
+    .container-text h2:nth-child(3):hover {
+      clip-path: circle(50% at 0% 0%);
+    }
+
+    .container-text h2:nth-child(4) {
+      color: #e91e63;
+      text-shadow:
+        2px 2px 6px rgba(174, 8, 64, 0.5),
+        4px 4px 16px rgba(174, 8, 64, 0.4),
+        6px 6px 28px rgba(0, 0, 0, 0.25);
+      clip-path: circle(15% at 100% 40%);
+      transition: clip-path 2.5s;
+    }
+
+    .container-text h2:nth-child(4):hover {
+      clip-path: circle(120% at 100% 40%);
+    }
+
+    .menu-list {
+      margin-top: 225px;
     }
   </style>
 </head>
 
 <body>
-
-  <nav class="navbar navbar-expand-lg py-3">
+  <nav class="navbar navbar-expand-lg py-0 bg-white shadow fixed-top">
     <div class="container">
       <a class="navbar-brand" href="#">TEA WITH GAME</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
         aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="collapse navbar-collapse nav-indicator-container" id="navbarContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
-          <li class="nav-item">
-            <a class="nav-link underline" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline" href="#">Menu</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline" href="#">Trending</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link underline" href="#">About Us</a>
-          </li>
+          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Trending</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
         </ul>
-        <form class="d-flex align-items-center" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="d-flex align-items-center ms-4" role="search">
+          <input class="form-control" type="search" placeholder="Search" aria-label="Search">
           <a href="#" class="cart-icon"><i class="fa-solid fa-cart-shopping"></i></a>
         </form>
+        <div id="indicator"></div>
       </div>
     </div>
   </nav>
 
-  <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-    <div class="carousel-inner">
+  <div data-scroll-container>
+    <main data-scroll>
+      <div id="home" class="carousel slide mb-4" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner">
 
-      <!-- Slide 1 -->
-      <div class="carousel-item active">
-        <section class="hero-section row align-items-center">
-          <div class="col-md-6 hero-left">  
-            <h5>Smooth taste</h5>
-            <h1>Caramel Ribbon</h1>
-            <p>Indulge in layers of caramel sauce, whipped cream, crunchy caramel sugar, and a drizzle of caramel for
-              the ultimate Frappuccino indulgence.</p>
-            <button class="order">
-              <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
-              <span class="success">
-                Order Placed
-                <svg viewBox="0 0 12 10">
-                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                </svg>
-              </span>
-              <div class="box"></div>
-              <div class="truck">
-                <div class="back"></div>
-                <div class="front">
-                  <div class="window"></div>
-                </div>
-                <div class="light top"></div>
-                <div class="light bottom"></div>
+          <!-- Slide 1 -->
+          <div class="carousel-item active">
+            <section class="hero-section row align-items-center">
+              <div class="col-md-6 hero-left">
+                <h5>Smooth taste</h5>
+                <h1>Caramel Ribbon</h1>
+                <p>Indulge in layers of caramel sauce, whipped cream, crunchy caramel sugar, and a
+                  drizzle of caramel for
+                  the ultimate Frappuccino indulgence.</p>
+                <button class="order">
+                  <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
+                  <span class="success">
+                    Order Placed
+                    <svg viewBox="0 0 12 10">
+                      <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                  </span>
+                  <div class="box"></div>
+                  <div class="truck">
+                    <div class="back"></div>
+                    <div class="front">
+                      <div class="window"></div>
+                    </div>
+                    <div class="light top"></div>
+                    <div class="light bottom"></div>
+                  </div>
+                  <div class="lines"></div>
+                </button>
               </div>
-              <div class="lines"></div>
-            </button>
+              <div class="col-md-6 hero-img text-center">
+                <img src="./Asset/Caramel Ribbon.png" alt="Caramel Ribbon Drink" class="Caramel-Ribbon">
+              </div>
+            </section>
           </div>
-          <div class="col-md-6 hero-img text-center">
-            <img src="./Asset/Caramel Ribbon.png" alt="Caramel Ribbon Drink" class="Caramel-Ribbon">
+
+          <!-- Slide 2 -->
+          <div class="carousel-item">
+            <section class="hero-section row align-items-center">
+              <div class="col-md-6 hero-left">
+                <h5>Flavor Burst</h5>
+                <h1>Bubble Tea</h1>
+                <p>Experience the perfect blend of creamy milk, rich tea, and chewy tapioca pearls. Our
+                  bubble tea is
+                  crafted to refresh your taste buds and bring a little sweetness to your day.</p>
+                <button class="order">
+                  <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
+                  <span class="success">
+                    Order Placed
+                    <svg viewBox="0 0 12 10">
+                      <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                    </svg>
+                  </span>
+                  <div class="box"></div>
+                  <div class="truck">
+                    <div class="back"></div>
+                    <div class="front">
+                      <div class="window"></div>
+                    </div>
+                    <div class="light top"></div>
+                    <div class="light bottom"></div>
+                  </div>
+                  <div class="lines"></div>
+                </button>
+              </div>
+              <div class="col-md-6 hero-img text-center">
+                <img src="./Asset/Bubble Tea.png" alt="Bubble Tea Drink" class="Bubble-Tea">
+              </div>
+            </section>
           </div>
-        </section>
+
+        </div>
       </div>
 
-      <!-- Slide 2 -->
-      <div class="carousel-item">
-        <section class="hero-section row align-items-center">
-          <div class="col-md-6 hero-left">
-            <h5>Flavor Burst</h5>
-            <h1>Bubble Tea</h1>
-            <p>Experience the perfect blend of creamy milk, rich tea, and chewy tapioca pearls. Our bubble tea is
-              crafted to refresh your taste buds and bring a little sweetness to your day.</p>
-            <button class="order">
-              <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
-              <span class="success">
-                Order Placed
-                <svg viewBox="0 0 12 10">
-                  <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                </svg>
-              </span>
-              <div class="box"></div>
-              <div class="truck">
-                <div class="back"></div>
-                <div class="front">
-                  <div class="window"></div>
-                </div>
-                <div class="light top"></div>
-                <div class="light bottom"></div>
-              </div>
-              <div class="lines"></div>
-            </button>
-          </div>
-          <div class="col-md-6 hero-img text-center">
-            <img src="./Asset/Bubble Tea.png" alt="Bubble Tea Drink" class="Bubble-Tea">
-          </div>
-        </section>
-      </div>
+      <div id="menu">
+        <div class="container-text">
+          <h2>MENU</h2>
+          <h2>MENU</h2>
+          <h2>MENU</h2>
+          <h2>MENU</h2>
+        </div>
+        <div class="container menu-list d-flex justify-content-center flex-wrap">
+          <div class="d-flex justify-content-evenly gap-5" style="margin-bottom: 100px;">
+            <div class="card-container">
+              <div class="box" style="--clr:rgb(210, 240, 180);">
+                <span style="--i:0" class="border"></span>
+                <span style="--i:1" class="border"></span>
+                <span style="--i:2" class="border"></span>
+                <span style="--i:3" class="border"></span>
+                <img src="./Asset/Caramel Frappuccino.png" alt="Caramel-Frappuccino">
+                <div class="content">
+                  <h2>Caramel Frappuccino</h2>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus aperiam blanditiis
+                    aliquam eligendi
+                    dicta sint voluptate nobis odio libero culpa.</p>
+                  <div class="white">
 
-    </div>
+                    <button class="add-to-cart">
+                      <span>Add to cart</span>
+                      <svg class="morph" viewBox="0 0 64 13">
+                        <path d="M0 12C6 12 17 12 32 12C47.9024 12 58 12 64 12V13H0V12Z" />
+                      </svg>
+                      <div class="shirt">
+                        <svg class="first" viewBox="0 0 24 24">
+                          <path
+                            d="M4.99997 3L8.99997 1.5C8.99997 1.5 10.6901 3 12 3C13.3098 3 15 1.5 15 1.5L19 3L22.5 8L19.5 10.5L19 9.5L17.1781 18.6093C17.062 19.1901 16.778 19.7249 16.3351 20.1181C15.4265 20.925 13.7133 22.3147 12 23C10.2868 22.3147 8.57355 20.925 7.66487 20.1181C7.22198 19.7249 6.93798 19.1901 6.82183 18.6093L4.99997 9.5L4.5 10.5L1.5 8L4.99997 3Z" />
+                          <g>
+                            <path
+                              d="M16.3516 9.65383H14.3484V7.83652H14.1742V9.8269H16.5258V7.83652H16.3516V9.65383Z" />
+                            <path
+                              d="M14.5225 6.01934V7.66357H14.6967V7.4905H14.8186V7.66357H14.9928V6.01934H14.8186V7.31742H14.6967V6.01934H14.5225Z" />
+                            <path
+                              d="M14.1742 5.67319V7.66357H14.3484V5.84627H16.3516V7.66357H16.5258V5.67319H14.1742Z" />
+                            <path
+                              d="M15.707 9.48071H15.8812V9.28084L16.0032 9.4807V9.48071H16.1774V7.83648H16.0032V9.14683L15.8812 8.94697V7.83648H15.707V9.48071Z" />
+                            <path d="M15.5852 6.01931H15.1149V6.19238H15.5852V6.01931Z" />
+                            <path
+                              d="M15.707 6.01934V7.66357H15.8812V7.46371L16.0032 7.66357H16.1774V6.01934H16.0032V7.32969L15.8812 7.12984V6.01934H15.707Z" />
+                            <path
+                              d="M15.411 7.31742H15.2891V6.53857H15.411V7.31742ZM15.1149 7.66357H15.2891V7.4905H15.411V7.66357H15.5852V6.3655H15.1149V7.66357Z" />
+                            <path
+                              d="M14.5225 8.69756L14.8186 9.18291V9.30763H14.6967V9.13455H14.5225V9.48071H14.9928V9.13456V9.13455L14.6967 8.64917V8.00956H14.8186V8.6586H14.9928V7.83648H14.5225V8.69756Z" />
+                            <path
+                              d="M15.411 9.30763H15.2891V8.00956H15.411V9.30763ZM15.1149 9.48071H15.5852V7.83648H15.1149V9.48071Z" />
+                          </g>
+                        </svg>
+                        <svg class="second" viewBox="0 0 24 24">
+                          <path
+                            d="M4.99997 3L8.99997 1.5C8.99997 1.5 10.6901 3 12 3C13.3098 3 15 1.5 15 1.5L19 3L22.5 8L19.5 10.5L19 9.5L17.1781 18.6093C17.062 19.1901 16.778 19.7249 16.3351 20.1181C15.4265 20.925 13.7133 22.3147 12 23C10.2868 22.3147 8.57355 20.925 7.66487 20.1181C7.22198 19.7249 6.93798 19.1901 6.82183 18.6093L4.99997 9.5L4.5 10.5L1.5 8L4.99997 3Z" />
+                          <g>
+                            <path
+                              d="M16.3516 9.65383H14.3484V7.83652H14.1742V9.8269H16.5258V7.83652H16.3516V9.65383Z" />
+                            <path
+                              d="M14.5225 6.01934V7.66357H14.6967V7.4905H14.8186V7.66357H14.9928V6.01934H14.8186V7.31742H14.6967V6.01934H14.5225Z" />
+                            <path
+                              d="M14.1742 5.67319V7.66357H14.3484V5.84627H16.3516V7.66357H16.5258V5.67319H14.1742Z" />
+                            <path
+                              d="M15.707 9.48071H15.8812V9.28084L16.0032 9.4807V9.48071H16.1774V7.83648H16.0032V9.14683L15.8812 8.94697V7.83648H15.707V9.48071Z" />
+                            <path d="M15.5852 6.01931H15.1149V6.19238H15.5852V6.01931Z" />
+                            <path
+                              d="M15.707 6.01934V7.66357H15.8812V7.46371L16.0032 7.66357H16.1774V6.01934H16.0032V7.32969L15.8812 7.12984V6.01934H15.707Z" />
+                            <path
+                              d="M15.411 7.31742H15.2891V6.53857H15.411V7.31742ZM15.1149 7.66357H15.2891V7.4905H15.411V7.66357H15.5852V6.3655H15.1149V7.66357Z" />
+                            <path
+                              d="M14.5225 8.69756L14.8186 9.18291V9.30763H14.6967V9.13455H14.5225V9.48071H14.9928V9.13456V9.13455L14.6967 8.64917V8.00956H14.8186V8.6586H14.9928V7.83648H14.5225V8.69756Z" />
+                            <path
+                              d="M15.411 9.30763H15.2891V8.00956H15.411V9.30763ZM15.1149 9.48071H15.5852V7.83648H15.1149V9.48071Z" />
+                          </g>
+                        </svg>
+                      </div>
+                      <div class="cart">
+                        <svg viewBox="0 0 36 26">
+                          <path d="M1 2.5H6L10 18.5H25.5L28.5 7.5L7.5 7.5" class="shape" />
+                          <path
+                            d="M11.5 25C12.6046 25 13.5 24.1046 13.5 23C13.5 21.8954 12.6046 21 11.5 21C10.3954 21 9.5 21.8954 9.5 23C9.5 24.1046 10.3954 25 11.5 25Z"
+                            class="wheel" />
+                          <path
+                            d="M24 25C25.1046 25 26 24.1046 26 23C26 21.8954 25.1046 21 24 21C22.8954 21 22 21.8954 22 23C22 24.1046 22.8954 25 24 25Z"
+                            class="wheel" />
+                          <path d="M14.5 13.5L16.5 15.5L21.5 10.5" class="tick" />
+                        </svg>
+                      </div>
+                    </button>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </main>
   </div>
 
-
-
+  <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll/dist/locomotive-scroll.min.js"></script>
+  <script>
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true,
+      multiplier: 1,
+      class: 'is-inview'
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/gsap.min.js"></script>
+  <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin3.min.js"></script>
+  <script>
+    gsap.registerPlugin(MorphSVGPlugin)
+
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      let morph = button.querySelector('.morph path'),
+        shirt = button.querySelectorAll('.shirt svg > path')
+      button.addEventListener('pointerdown', e => {
+        if (button.classList.contains('active')) {
+          return
+        }
+        gsap.to(button, {
+          '--background-scale': .97,
+          duration: .15
+        })
+      })
+      button.addEventListener('click', e => {
+        e.preventDefault()
+        if (button.classList.contains('active')) {
+          return
+        }
+        button.classList.add('active')
+        gsap.to(button, {
+          keyframes: [{
+            '--background-scale': .97,
+            duration: .15
+          }, {
+            '--background-scale': 1,
+            delay: .125,
+            duration: 1.2,
+            ease: 'elastic.out(1, .6)'
+          }]
+        })
+        gsap.to(button, {
+          keyframes: [{
+            '--shirt-scale': 1,
+            '--shirt-y': '-42px',
+            '--cart-x': '0px',
+            '--cart-scale': 1,
+            duration: .4,
+            ease: 'power1.in'
+          }, {
+            '--shirt-y': '-40px',
+            duration: .3
+          }, {
+            '--shirt-y': '16px',
+            '--shirt-scale': .9,
+            duration: .25,
+            ease: 'none'
+          }, {
+            '--shirt-scale': 0,
+            duration: .3,
+            ease: 'none'
+          }]
+        })
+        gsap.to(button, {
+          '--shirt-second-y': '0px',
+          delay: .835,
+          duration: .12
+        })
+        gsap.to(button, {
+          keyframes: [{
+            '--cart-clip': '12px',
+            '--cart-clip-x': '3px',
+            delay: .9,
+            duration: .06
+          }, {
+            '--cart-y': '2px',
+            duration: .1
+          }, {
+            '--cart-tick-offset': '0px',
+            '--cart-y': '0px',
+            duration: .2,
+            onComplete() {
+              button.style.overflow = 'hidden'
+            }
+          }, {
+            '--cart-x': '52px',
+            '--cart-rotate': '-15deg',
+            duration: .2
+          }, {
+            '--cart-x': '104px',
+            '--cart-rotate': '0deg',
+            duration: .2,
+            clearProps: true,
+            onComplete() {
+              button.style.overflow = 'hidden'
+              button.style.setProperty('--text-o', 0)
+              button.style.setProperty('--text-x', '0px')
+              button.style.setProperty('--cart-x', '-104px')
+            }
+          }, {
+            '--text-o': 1,
+            '--text-x': '12px',
+            '--cart-x': '-48px',
+            '--cart-scale': .75,
+            duration: .25,
+            clearProps: true,
+            onComplete() {
+              button.classList.remove('active')
+            }
+          }]
+        })
+        gsap.to(button, {
+          keyframes: [{
+            '--text-o': 0,
+            duration: .3
+          }]
+        })
+        gsap.to(morph, {
+          keyframes: [{
+            morphSVG: 'M0 12C6 12 20 10 32 0C43.9024 9.99999 58 12 64 12V13H0V12Z',
+            duration: .25,
+            ease: 'power1.out'
+          }, {
+            morphSVG: 'M0 12C6 12 17 12 32 12C47.9024 12 58 12 64 12V13H0V12Z',
+            duration: .15,
+            ease: 'none'
+          }]
+        })
+        gsap.to(shirt, {
+          keyframes: [{
+            morphSVG: 'M4.99997 3L8.99997 1.5C8.99997 1.5 10.6901 3 12 3C13.3098 3 15 1.5 15 1.5L19 3L23.5 8L20.5 11L19 9.5L18 22.5C18 22.5 14 21.5 12 21.5C10 21.5 5.99997 22.5 5.99997 22.5L4.99997 9.5L3.5 11L0.5 8L4.99997 3Z',
+            duration: .25,
+            delay: .25
+          }, {
+            morphSVG: 'M4.99997 3L8.99997 1.5C8.99997 1.5 10.6901 3 12 3C13.3098 3 15 1.5 15 1.5L19 3L23.5 8L20.5 11L19 9.5L18.5 22.5C18.5 22.5 13.5 22.5 12 22.5C10.5 22.5 5.5 22.5 5.5 22.5L4.99997 9.5L3.5 11L0.5 8L4.99997 3Z',
+            duration: .85,
+            ease: 'elastic.out(1, .5)'
+          }, {
+            morphSVG: 'M4.99997 3L8.99997 1.5C8.99997 1.5 10.6901 3 12 3C13.3098 3 15 1.5 15 1.5L19 3L22.5 8L19.5 10.5L19 9.5L17.1781 18.6093C17.062 19.1901 16.778 19.7249 16.3351 20.1181C15.4265 20.925 13.7133 22.3147 12 23C10.2868 22.3147 8.57355 20.925 7.66487 20.1181C7.22198 19.7249 6.93798 19.1901 6.82183 18.6093L4.99997 9.5L4.5 10.5L1.5 8L4.99997 3Z',
+            duration: 0,
+            delay: 1.25
+          }]
+        })
+      })
+    })
+  </script>
   <script>
     $('.order').click(function (e) {
       let button = $(this);
@@ -264,7 +597,81 @@
       }
     });
   </script>
+  <script>
+    let marker = document.querySelector('#indicator');
+    let nav = document.querySelector('.navbar-nav');
+    let items = document.querySelectorAll('.nav-link');
 
+    nav.onclick = function () {
+      marker.classList.toggle('change');
+    };
+
+    function indicator(e) {
+      marker.style.left = e.offsetLeft + "px";
+      marker.style.width = e.offsetWidth + "px";
+      marker.style.display = "block";
+    }
+
+    items.forEach(link => {
+      link.addEventListener("click", (e) => {
+        indicator(e.target);
+      });
+    });
+
+    function addActiveClass() {
+      items.forEach((i) => i.classList.remove('active'));
+      this.classList.add('active');
+    }
+
+    items.forEach((i) => i.addEventListener('click', addActiveClass));
+
+    const sections = document.querySelectorAll('main [id]');
+
+    function updateIndicator(currentLink) {
+      marker.style.left = currentLink.offsetLeft + 'px';
+      marker.style.width = currentLink.offsetWidth + 'px';
+      marker.style.display = 'block';
+    }
+
+    // Listen to LocomotiveScroll events
+    scroll.on('scroll', (obj) => {
+      const scrollY = obj.scroll.y;
+
+      let currentSectionId = sections[0].id;
+
+      sections.forEach(sec => {
+        // Get position relative to scroll container
+        const sectionOffset = scroll.el.querySelector(`#${sec.id}`).offsetTop;
+        const sectionHeight = sec.offsetHeight;
+
+        // Adjust for navbar height (here 80px)
+        if (scrollY >= sectionOffset - 80 && scrollY < sectionOffset + sectionHeight - 80) {
+          currentSectionId = sec.id;
+        }
+      });
+
+      items.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${currentSectionId}`) {
+          link.classList.add('active');
+          updateIndicator(link);
+        }
+      });
+    });
+
+    // Smooth scroll when clicking nav links
+    items.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').replace('#', '');
+        const target = document.getElementById(targetId);
+        if (target) {
+          scroll.scrollTo(target, { offset: -80, duration: 1200, easing: [0.25, 0.0, 0.35, 1.0] });
+        }
+      });
+    });
+
+  </script>
 </body>
 
 </html>
