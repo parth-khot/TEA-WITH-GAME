@@ -244,10 +244,10 @@
       </button>
       <div class="collapse navbar-collapse nav-indicator-container" id="navbarContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
-          <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#menu">Menu</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Trending</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#home"><i class="fa-solid fa-house-chimney"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu"><i class="fa-solid fa-coffee-pot"></i>Menu</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-chart-user"></i>Trending</a></li>
+          <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-address-card"></i>About Us</a></li>
         </ul>
         <form class="d-flex align-items-center ms-4" role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -354,9 +354,7 @@
                 <img src="./Asset/Caramel Frappuccino.png" alt="Caramel-Frappuccino">
                 <div class="content">
                   <h2>Caramel Frappuccino</h2>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus aperiam blanditiis
-                    aliquam eligendi
-                    dicta sint voluptate nobis odio libero culpa.</p>
+                  <p>A refreshing blend of coffee, milk, and caramel, topped with whipped cream.</p>
                   <div class="white">
 
                     <button class="add-to-cart">
@@ -633,18 +631,15 @@
       marker.style.display = 'block';
     }
 
-    // Listen to LocomotiveScroll events
     scroll.on('scroll', (obj) => {
       const scrollY = obj.scroll.y;
 
       let currentSectionId = sections[0].id;
 
       sections.forEach(sec => {
-        // Get position relative to scroll container
         const sectionOffset = scroll.el.querySelector(`#${sec.id}`).offsetTop;
         const sectionHeight = sec.offsetHeight;
 
-        // Adjust for navbar height (here 80px)
         if (scrollY >= sectionOffset - 80 && scrollY < sectionOffset + sectionHeight - 80) {
           currentSectionId = sec.id;
         }
@@ -659,7 +654,6 @@
       });
     });
 
-    // Smooth scroll when clicking nav links
     items.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
