@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="./CSS/Order.css">
   <link rel="stylesheet" href="./CSS/Card.css">
   <link rel="stylesheet" href="./CSS/AddtoCart.css">
-
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <style>
     [data-scroll-container] {
       overflow: hidden;
@@ -231,6 +231,24 @@
     .menu-list {
       margin-top: 225px;
     }
+
+    .swiper {
+      width: 100%;
+      max-width: 1200px;
+      height: 600px;
+      margin: 0 auto;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .swiper-slide {
+      background: #fff;
+      display: flex;
+      align-items: center;
+      padding: 40px;
+      box-sizing: border-box;
+    }
   </style>
 </head>
 
@@ -246,8 +264,10 @@
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-3">
           <li class="nav-item"><a class="nav-link" href="#home"><i class="fa-solid fa-house-chimney"></i>Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#menu"><i class="fa-solid fa-coffee-pot"></i>Menu</a></li>
-          <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-chart-user"></i>Trending</a></li>
-          <li class="nav-item"><a class="nav-link" href="#"><i class="fa-solid fa-address-card"></i>About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="#trending"><i class="fa-solid fa-chart-user"></i>Trending</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#aboutus"><i class="fa-solid fa-address-card"></i>About Us</a>
+          </li>
         </ul>
         <form class="d-flex align-items-center ms-4" role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -270,8 +290,7 @@
                 <h5>Smooth taste</h5>
                 <h1>Caramel Ribbon</h1>
                 <p>Indulge in layers of caramel sauce, whipped cream, crunchy caramel sugar, and a
-                  drizzle of caramel for
-                  the ultimate Frappuccino indulgence.</p>
+                  drizzle of caramel for the ultimate Frappuccino indulgence.</p>
                 <button class="order">
                   <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
                   <span class="success">
@@ -305,8 +324,7 @@
                 <h5>Flavor Burst</h5>
                 <h1>Bubble Tea</h1>
                 <p>Experience the perfect blend of creamy milk, rich tea, and chewy tapioca pearls. Our
-                  bubble tea is
-                  crafted to refresh your taste buds and bring a little sweetness to your day.</p>
+                  bubble tea is crafted to refresh your taste buds and bring a little sweetness to your day.</p>
                 <button class="order">
                   <span class="default"><i class="fa-solid fa-box-isometric-tape"></i>Order Now</span>
                   <span class="success">
@@ -841,6 +859,147 @@
             </div>
           </div>
         </div>
+        <div class="swiper mySwiper mb-3" id="trending">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <section class="hero-section row align-items-center">
+                <div class="col-lg-6 hero-left">
+                  <h5>Smooth taste</h5>
+                  <h1>Caramel Ribbon</h1>
+                  <p>Indulge in layers of caramel sauce, whipped cream, crunchy caramel sugar, and a
+                    drizzle of caramel for the ultimate Frappuccino indulgence.</p>
+                  <button class="order">
+                    <span class="default"><i class="fa-solid fa-box-isometric-tape"></i> Order Now</span>
+                    <span class="success">
+                      Order Placed
+                      <svg viewBox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                    <div class="box"></div>
+                    <div class="truck">
+                      <div class="back"></div>
+                      <div class="front">
+                        <div class="window"></div>
+                      </div>
+                      <div class="light top"></div>
+                      <div class="light bottom"></div>
+                    </div>
+                    <div class="lines"></div>
+                  </button>
+                </div>
+                <div class="col-lg-6 hero-img">
+                  <img src="./Asset/Caramel Ribbon.png" alt="Caramel Ribbon" class="Caramel-Ribbon">
+                </div>
+              </section>
+            </div>
+
+            <div class="swiper-slide">
+              <section class="hero-section row align-items-center">
+                <div class="col-lg-6 hero-left">
+                  <h5>Flavor Burst</h5>
+                  <h1>Bubble Tea</h1>
+                  <p>Experience the perfect blend of creamy milk, rich tea, and chewy tapioca pearls. Our
+                    bubble tea is crafted to refresh your taste buds and bring a little sweetness to your day.
+                  </p>
+                  <button class="order">
+                    <span class="default"><i class="fa-solid fa-box-isometric-tape"></i> Order Now</span>
+                    <span class="success">
+                      Order Placed
+                      <svg viewBox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                    <div class="box"></div>
+                    <div class="truck">
+                      <div class="back"></div>
+                      <div class="front">
+                        <div class="window"></div>
+                      </div>
+                      <div class="light top"></div>
+                      <div class="light bottom"></div>
+                    </div>
+                    <div class="lines"></div>
+                  </button>
+                </div>
+                <div class="col-lg-6 hero-img">
+                  <img src="./Asset/Bubble Tea.png" alt="Bubble Tea Drink" class="Bubble-Tea">
+                </div>
+              </section>
+            </div>
+
+            <div class="swiper-slide">
+              <section class="hero-section row align-items-center">
+                <div class="col-lg-6 hero-left">
+                  <h5>Tropical Delight</h5>
+                  <h1>Paradise Bliss</h1>
+                  <p>Escape to a tropical getaway with Paradise Bliss—a luscious blend of exotic fruits and creamy
+                    sweetness. Bright, refreshing, and perfectly balanced, each sip feels like a taste of
+                    paradise.</p>
+                  <button class="order">
+                    <span class="default"><i class="fa-solid fa-box-isometric-tape"></i> Order Now</span>
+                    <span class="success">
+                      Order Placed
+                      <svg viewBox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                    <div class="box"></div>
+                    <div class="truck">
+                      <div class="back"></div>
+                      <div class="front">
+                        <div class="window"></div>
+                      </div>
+                      <div class="light top"></div>
+                      <div class="light bottom"></div>
+                    </div>
+                    <div class="lines"></div>
+                  </button>
+                </div>
+                <div class="col-lg-6 hero-img">
+                  <img src="./Asset/trending Paradise.png" alt="Paradise Bliss" class="Paradise-Bliss" style="transform: scale(1.1);">
+                </div>
+              </section>
+            </div>
+
+            <div class="swiper-slide">
+              <section class="hero-section row align-items-center">
+                <div class="col-lg-6 hero-left">
+                  <h5>Cosmic Crunch</h5>
+                  <h1>Galaxy Oreo Dip</h1>
+                  <p>A cosmic treat featuring crunchy Oreo pieces blended into creamy chocolate, topped with a
+                    shimmering galaxy-inspired swirl. Sweet, indulgent, and visually mesmerizing—perfect for
+                    dessert lovers seeking a stellar experience</p>
+                  <button class="order">
+                    <span class="default"><i class="fa-solid fa-box-isometric-tape"></i> Order Now</span>
+                    <span class="success">
+                      Order Placed
+                      <svg viewBox="0 0 12 10">
+                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                      </svg>
+                    </span>
+                    <div class="box"></div>
+                    <div class="truck">
+                      <div class="back"></div>
+                      <div class="front">
+                        <div class="window"></div>
+                      </div>
+                      <div class="light top"></div>
+                      <div class="light bottom"></div>
+                    </div>
+                    <div class="lines"></div>
+                  </button>
+                </div>
+                <div class="col-lg-6 hero-img">
+                  <img src="./Asset/trending Galaxy.png" alt="Galaxy Oreo Dip" class="Galaxy Oreo Dip" style="transform: scale(1.1);">
+                </div>
+              </section>
+            </div>
+          </div>
+
+          <div class="swiper-pagination"></div>
+
+        </div>
     </main>
   </div>
 
@@ -856,6 +1015,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.4.0/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin3.min.js"></script>
   <script>
     gsap.registerPlugin(MorphSVGPlugin)
@@ -1076,6 +1236,37 @@
       });
     });
 
+  </script>
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+
+      loop: true,
+
+      autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+      },
+
+      speed: 800,
+
+      effect: 'slide',
+
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+      },
+
+      keyboard: {
+        enabled: true,
+      },
+
+      mousewheel: {
+        enabled: false,
+      },
+
+      grabCursor: true,
+    });
   </script>
 </body>
 

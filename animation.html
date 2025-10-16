@@ -13,7 +13,7 @@
             margin: 0;
         }
 
-        main {
+        .Tree {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -381,7 +381,7 @@
 </head>
 
 <body>
-    <main>
+    <div class="Tree">
         <div class="mouse-scroll">
             <span class="mouse">
                 <span></span>
@@ -406,13 +406,14 @@
             <i></i>
             <i></i>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
-        <script>
-            const scroll = new LocomotiveScroll({
-                el: document.querySelector('main'),
-                smooth: true
-            });
-        </script>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js"></script>
+    <script>
+        const scroll = new LocomotiveScroll({
+            el: document.querySelector('main'),
+            smooth: true
+        });
+    </script>
 </body>
 
 </html>
