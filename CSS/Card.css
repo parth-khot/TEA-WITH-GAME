@@ -34,7 +34,7 @@
 }
 
 .card-container .box:hover::before {
-    inset: -200px 30px 30px 30px;
+    inset: -160px 30px 30px 30px;
 }
 
 .card-container .box img {
@@ -49,7 +49,7 @@
 }
 
 .card-container .box:hover img {
-    top: -190px;
+    top: -150px;
 }
 
 .card-container .box .content {
